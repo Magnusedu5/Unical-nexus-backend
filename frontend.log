@@ -1,0 +1,63 @@
+
+> vite_react_shadcn_ts@0.0.0 dev
+> vite --port 8080
+
+
+  VITE v5.4.19  ready in 567 ms
+
+  ➜  Local:   http://localhost:8080/
+  ➜  Network: http://172.20.10.3:8080/
+  ➜  Network: http://172.21.0.1:8080/
+  ➜  Network: http://172.20.0.1:8080/
+Browserslist: browsers data (caniuse-lite) is 8 months old. Please run:
+  npx update-browserslist-db@latest
+  Why you should do it regularly: https://github.com/browserslist/update-db#readme
+[vite:css] @import must precede all other statements (besides @charset or empty @layer)
+3  |  @tailwind utilities;
+4  |  
+5  |  @import '@fontsource/playfair-display/400.css';
+   |  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+6  |  @import '@fontsource/playfair-display/500.css';
+7  |  @import '@fontsource/playfair-display/600.css';
+[vite:css] @import must precede all other statements (besides @charset or empty @layer)
+4  |  
+5  |  @import '@fontsource/playfair-display/400.css';
+6  |  @import '@fontsource/playfair-display/500.css';
+   |  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+7  |  @import '@fontsource/playfair-display/600.css';
+8  |  @import '@fontsource/playfair-display/700.css';
+[vite:css] @import must precede all other statements (besides @charset or empty @layer)
+5  |  @import '@fontsource/playfair-display/400.css';
+6  |  @import '@fontsource/playfair-display/500.css';
+7  |  @import '@fontsource/playfair-display/600.css';
+   |  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+8  |  @import '@fontsource/playfair-display/700.css';
+9  |  @import '@fontsource/inter/400.css';
+[vite:css] @import must precede all other statements (besides @charset or empty @layer)
+6  |  @import '@fontsource/playfair-display/500.css';
+7  |  @import '@fontsource/playfair-display/600.css';
+8  |  @import '@fontsource/playfair-display/700.css';
+   |  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+9  |  @import '@fontsource/inter/400.css';
+10 |  @import '@fontsource/inter/500.css';
+[vite:css] @import must precede all other statements (besides @charset or empty @layer)
+7  |  @import '@fontsource/playfair-display/600.css';
+8  |  @import '@fontsource/playfair-display/700.css';
+9  |  @import '@fontsource/inter/400.css';
+   |  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+10 |  @import '@fontsource/inter/500.css';
+11 |  @import '@fontsource/inter/600.css';
+[vite:css] @import must precede all other statements (besides @charset or empty @layer)
+8  |  @import '@fontsource/playfair-display/700.css';
+9  |  @import '@fontsource/inter/400.css';
+10 |  @import '@fontsource/inter/500.css';
+   |  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+11 |  @import '@fontsource/inter/600.css';
+12 |  
+[vite:css] @import must precede all other statements (besides @charset or empty @layer)
+9  |  @import '@fontsource/inter/400.css';
+10 |  @import '@fontsource/inter/500.css';
+11 |  @import '@fontsource/inter/600.css';
+   |  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+12 |  
+13 |  /* 
