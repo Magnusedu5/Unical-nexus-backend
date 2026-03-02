@@ -1,9 +1,11 @@
 from rest_framework_simplejwt.views import TokenObtainPairView
+from rest_framework import viewsets
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
-from .serializers import CustomTokenObtainPairSerializer
+from .serializers import CustomTokenObtainPairSerializer, UserSerializer
 from .permissions import IsStudent, IsAdmin, IsStaff
+from .models import User
 from typing import Dict, Any
 
 class CustomTokenObtainPairView(TokenObtainPairView):
@@ -67,3 +69,12 @@ class AdminDashboardView(APIView):
             "recent_transactions": 50
         }
         return Response(data)
+
+class UserViewSet(viewsets.ModelViewSet):
+    """
+    ViewSet for viewing and editing user instances.
+    Only Admins should be able to access this.
+    """
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
+    permission_classes = [IsAuthenticated, IsAdmin]
