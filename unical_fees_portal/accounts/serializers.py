@@ -6,12 +6,6 @@ class CustomTokenObtainPairSerializer(TokenObtainPairSerializer):
     """
     Customizes the JWT response to include user's role, id, and full name.
     """
-    username_field = 'email'
-    
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        self.fields[self.username_field] = serializers.CharField()
-        self.fields.pop('username', None)
     @classmethod
     def get_token(cls, user: User):
         token = super().get_token(user)
