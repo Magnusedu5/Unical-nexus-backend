@@ -53,6 +53,7 @@ INSTALLED_APPS = [
     # Local apps
     'unical_fees_portal.core',
     'unical_fees_portal.accounts',
+    'api',
 
     # CORS
     'corsheaders',
