@@ -32,8 +32,7 @@ DEBUG = os.environ.get('DEBUG', 'False') == 'True'
 ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS', '*').split(',')
 
 # Trust localtunnel domain for CSRF verification
-CSRF_TRUSTED_ORIGINS = os.environ.get('CSRF_TRUSTED_ORIGINS', 'http://localhost:8080').split(',')
-
+CSRF_TRUSTED_ORIGINS = os.environ.get('CSRF_TRUSTED_ORIGINS', 'http://localhost:8080,http://localhost:3000,http://localhost:5173,http://127.0.0.1:3000').split(',')
 
 # Application definition
 
@@ -73,7 +72,8 @@ MIDDLEWARE = [
 
 # Add the domains your frontend will be running on.
 # For production, you would replace these with your actual frontend domain.
-CORS_ALLOWED_ORIGINS = os.environ.get('CORS_ALLOWED_ORIGINS', 'http://localhost:8080').split(',')
+CORS_ALLOW_ALL_ORIGINS = True
+CORS_ALLOWED_ORIGINS = os.environ.get('CORS_ALLOWED_ORIGINS', 'http://localhost:8080,http://localhost:3000,http://localhost:5173,http://127.0.0.1:3000').split(',')
 
 ROOT_URLCONF = 'unical_fees_portal.urls'
 

@@ -6,6 +6,8 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/', include('unical_fees_portal.accounts.urls')),
     path('api/', include('unical_fees_portal.core.urls')),
+    # NOTE: Including multiple apps under the same 'api/' prefix can lead to
+    # URL conflicts if not managed carefully inside each app's urls.py.
     path('api/', include('api.urls')),
     path('api/schema/', SpectacularAPIView.as_view(), name='schema'),
     # Optional UI:
