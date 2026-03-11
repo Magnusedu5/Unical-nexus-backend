@@ -1,6 +1,7 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 from .models import StaffProfile, User, StudentProfile, AdminProfile
+# from .models import FeeItem, FacultyCharge, ExtraCharge, Payment, Transaction
 
 class CustomUserAdmin(UserAdmin):
     """
@@ -24,3 +25,9 @@ admin.site.register(User, CustomUserAdmin)
 admin.site.register(StudentProfile)
 admin.site.register(AdminProfile)
 admin.site.register(StaffProfile)
+# admin.site.register(FeeItem)
+# admin.site.register(FacultyCharge)
+# admin.site.register(ExtraCharge)
+# admin.site.register(Payment)
+# admin.site.register(Transaction)
+# This app uses the User model from 'accounts', which is already registered.

@@ -52,6 +52,14 @@ INSTALLED_APPS = [
     # Local apps
     'unical_fees_portal.core',
     'unical_fees_portal.accounts',
+    'unical_fees_portal.fees',
+    'unical_fees_portal.students',
+    'unical_fees_portal.staff',
+    'unical_fees_portal.admissions',
+    'unical_fees_portal.courses',
+    'unical_fees_portal.hostels',
+    'unical_fees_portal.results',
+    'unical_fees_portal.portal_settings',
     'api',
 
     # CORS
