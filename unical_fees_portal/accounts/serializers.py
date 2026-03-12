@@ -1,7 +1,6 @@
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 from rest_framework import serializers
 from .models import User, StudentProfile, StaffProfile, AdminProfile
-from .models import FeeItem, FacultyCharge, ExtraCharge, Payment, Transaction
 
 class CustomTokenObtainPairSerializer(TokenObtainPairSerializer):
     """
@@ -15,20 +14,10 @@ class CustomTokenObtainPairSerializer(TokenObtainPairSerializer):
         token['role'] = user.role
         token['user_id'] = user.id
         token['full_name'] = user.get_full_name()
-class FeeItemSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = FeeItem
-        fields = '__all__'
-
         return token
 
     def validate(self, attrs):
         data = super().validate(attrs)
-class FacultyChargeSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = FacultyCharge
-        fields = '__all__'
-
         # Add user role, id, and full name to the response
         data['user_role'] = self.user.role
         data['user_id'] = self.user.id
@@ -42,12 +31,9 @@ class FacultyChargeSerializer(serializers.ModelSerializer):
         return data
 
 class StudentProfileSerializer(serializers.ModelSerializer):
-class ExtraChargeSerializer(serializers.ModelSerializer):
     class Meta:
         model = StudentProfile
         fields = ['matric_number', 'faculty', 'department', 'level']
-        model = ExtraCharge
-        fields = '__all__'
 
 class StaffProfileSerializer(serializers.ModelSerializer):
     class Meta:
@@ -55,12 +41,9 @@ class StaffProfileSerializer(serializers.ModelSerializer):
         fields = ['staff_id', 'department']
 
 class AdminProfileSerializer(serializers.ModelSerializer):
-class PaymentSerializer(serializers.ModelSerializer):
     class Meta:
         model = AdminProfile
         fields = ['staff_id', 'department']
-        model = Payment
-        fields = '__all__'
 
 class UserSerializer(serializers.ModelSerializer):
     password = serializers.CharField(write_only=True)
@@ -68,7 +51,6 @@ class UserSerializer(serializers.ModelSerializer):
     staff_profile = StaffProfileSerializer(required=False)
     admin_profile = AdminProfileSerializer(required=False)
 
-class TransactionSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = ['id', 'username', 'email', 'first_name', 'last_name', 'role', 'password', 'student_profile', 'staff_profile', 'admin_profile']
@@ -77,11 +59,10 @@ class TransactionSerializer(serializers.ModelSerializer):
         student_data = validated_data.pop('student_profile', None)
         staff_data = validated_data.pop('staff_profile', None)
         admin_data = validated_data.pop('admin_profile', None)
+        # create_user takes password as a separate argument
         password = validated_data.pop('password')
         
-        user = User.objects.create(**validated_data)
-        user.set_password(password)
-        user.save()
+        user = User.objects.create_user(**validated_data, password=password)
 
         if user.role == User.Roles.STUDENT and student_data:
             StudentProfile.objects.create(user=user, **student_data)
@@ -91,5 +72,3 @@ class TransactionSerializer(serializers.ModelSerializer):
             AdminProfile.objects.create(user=user, **admin_data)
             
         return user
-        model = Transaction
-        fields = '__all__'

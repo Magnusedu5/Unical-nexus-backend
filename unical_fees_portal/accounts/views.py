@@ -1,23 +1,11 @@
 from rest_framework_simplejwt.views import TokenObtainPairView
-from rest_framework import viewsets
 from rest_framework.views import APIView
-import random
-import string
-from rest_framework import viewsets, status
-from rest_framework.decorators import action
+from rest_framework import viewsets, permissions
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
 from .serializers import CustomTokenObtainPairSerializer, UserSerializer
-from .serializers import CustomTokenObtainPairSerializer
 from .permissions import IsStudent, IsAdmin, IsStaff
 from .models import User
-from typing import Dict, Any
-from unical_fees_portal.accounts.models import User
-from unical_fees_portal.accounts.serializers import UserSerializer
-from .models import Applicant
-from .serializers import ApplicantSerializer
-from unical_fees_portal.accounts.permissions import IsAdmin
-from unical_fees_portal.accounts.models import User, StudentProfile
 
 class CustomTokenObtainPairView(TokenObtainPairView):
     """

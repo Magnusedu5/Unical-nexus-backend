@@ -60,7 +60,6 @@ INSTALLED_APPS = [
     'unical_fees_portal.hostels',
     'unical_fees_portal.results',
     'unical_fees_portal.portal_settings',
-    #'api',
 
     # CORS
     'corsheaders',
