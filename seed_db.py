@@ -34,7 +34,10 @@ def seed():
         )
         print("✅ Student user created.")
     else:
-        print("ℹ️ Student user already exists.")
+        student = User.objects.get(username='student')
+        student.set_password('password123')
+        student.save()
+        print("ℹ️ Student user updated (password reset).")
 
     # --- Create Admin ---
     if not User.objects.filter(username='admin').exists():
@@ -57,7 +60,16 @@ def seed():
         )
         print("✅ Admin user created.")
     else:
-        print("ℹ️ Admin user already exists.")
+        admin = User.objects.get(username='admin')
+        admin.set_password('password123')
+        admin.save()
+        if not AdminProfile.objects.filter(user=admin).exists():
+            AdminProfile.objects.create(
+                user=admin,
+                staff_id='ADMIN001',
+                department='Registry'
+            )
+        print("ℹ️ Admin user updated (password reset).")
 
     # --- Create Staff ---
     if not User.objects.filter(username='staff').exists():
@@ -78,7 +90,10 @@ def seed():
         )
         print("✅ Staff user created.")
     else:
-        print("ℹ️ Staff user already exists.")
+        staff = User.objects.get(username='staff')
+        staff.set_password('password123')
+        staff.save()
+        print("ℹ️ Staff user updated (password reset).")
 
 if __name__ == '__main__':
     seed()
