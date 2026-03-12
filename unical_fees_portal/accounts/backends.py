@@ -1,7 +1,9 @@
-
+from django.contrib.auth import get_user_model
 from django.contrib.auth.backends import ModelBackend
 from django.db.models import Q
-from .models import User, StudentProfile, AdminProfile, StaffProfile
+from .models import StudentProfile, AdminProfile, StaffProfile
+
+User = get_user_model()
 
 class CustomAuthBackend(ModelBackend):
     """
@@ -13,7 +15,11 @@ class CustomAuthBackend(ModelBackend):
         Overrides the default authenticate method to allow for various login identifiers.
         """
         if username is None:
-            username = kwargs.get('email')
+            username = kwargs.get('email') or kwargs.get('username')
+            
+        if not username:
+            return None
+
         try:
             # Try to fetch the user by username, email, matric number, or staff id.
             # The 'username' parameter from the login form can be any of these.
@@ -37,18 +43,10 @@ class CustomAuthBackend(ModelBackend):
                             user = staff_profile.user
 
             # If a user is found, check the password
-            if user and user.check_password(password):
+            # Also check if the user is active (standard Django behavior)
+            if user and user.check_password(password) and self.user_can_authenticate(user):
                 return user
 
-        except User.DoesNotExist:
-            # No user was found, return None
-            return None
-
-    def get_user(self, user_id):
-        """
-        Overrides the get_user method to allow Django to retrieve a user by their ID.
-        """
-        try:
-            return User.objects.get(pk=user_id)
-        except User.DoesNotExist:
+        except Exception:
+            # Catch unexpected errors to prevent 500s
             return None
