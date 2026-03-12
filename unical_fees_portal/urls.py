@@ -18,15 +18,15 @@ urlpatterns = [
     path('api/', include('unical_fees_portal.accounts.urls')),
 
     # App URLs
-    path('fees/', include('unical_fees_portal.fees.urls')),
-    path('students/', include('unical_fees_portal.students.urls')),
-    path('staff/', include('unical_fees_portal.staff.urls')),
-    path('admissions/', include('unical_fees_portal.admissions.urls')),
-    path('courses/', include('unical_fees_portal.courses.urls')),
-    path('hostels/', include('unical_fees_portal.hostels.urls')),
-    path('results/', include('unical_fees_portal.results.urls')),
-    path('settings/', include('unical_fees_portal.portal_settings.urls')),
-    path('', include('unical_fees_portal.core.urls')), # For faculties and departments
+    path('api/fees/', include('unical_fees_portal.fees.urls')),
+    path('api/students/', include('unical_fees_portal.students.urls')),
+    path('api/staff/', include('unical_fees_portal.staff.urls')),
+    path('api/admissions/', include('unical_fees_portal.admissions.urls')),
+    path('api/courses/', include('unical_fees_portal.courses.urls')),
+    path('api/hostels/', include('unical_fees_portal.hostels.urls')),
+    path('api/results/', include('unical_fees_portal.results.urls')),
+    path('api/settings/', include('unical_fees_portal.portal_settings.urls')),
+    path('api/', include('unical_fees_portal.core.urls')), # For faculties and departments
 
     # Root Router
     path('', include(root_router.urls)),
