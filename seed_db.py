@@ -1,75 +1,84 @@
 import os
 import django
-import sys
 
-# Setup Django environment
-sys.path.append(os.path.dirname(os.path.abspath(__file__)))
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'unical_fees_portal.settings')
-django.setup()
+def seed():
+    # Set up Django environment
+    os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'unical_fees_portal.settings')
+    django.setup()
 
-from unical_fees_portal.accounts.models import User, StudentProfile, StaffProfile, AdminProfile
-from unical_fees_portal.core.models import Faculty, Department
+    from django.contrib.auth import get_user_model
+    from unical_fees_portal.accounts.models import StudentProfile, AdminProfile, StaffProfile
 
-def run_seed():
-    print("🌱 Seeding database...")
+    User = get_user_model()
 
-    # 1. Create Faculty & Department
-    science, _ = Faculty.objects.get_or_create(name="Faculty of Science")
-    compsci, _ = Department.objects.get_or_create(name="Computer Science", faculty=science)
-    print(f"✅ Created Faculty: {science.name} & Department: {compsci.name}")
+    print("Checking for initial data...")
 
-    # 2. Create Admin User
-    if not User.objects.filter(username="admin").exists():
-        admin = User.objects.create_superuser(
-            username="admin",
-            email="admin@unical.demo",
-            password="Admin@1234",
-            role="ADMIN",
-            first_name="Super",
-            last_name="Admin"
-        )
-        # Create Admin Profile
-        if not hasattr(admin, 'admin_profile'):
-             AdminProfile.objects.create(user=admin, staff_id="ADMIN001", department="Registry")
-        print(f"✅ Created Admin: username='admin' / password='Admin@1234'")
-    else:
-        print("ℹ️  Admin user already exists")
-
-    # 3. Create Staff User
-    if not User.objects.filter(username="STF/2024/001").exists():
-        staff = User.objects.create_user(
-            username="STF/2024/001",
-            email="staff@unical.demo",
-            password="Staff@1234",
-            role="STAFF",
-            first_name="John",
-            last_name="Doe"
-        )
-        StaffProfile.objects.create(user=staff, staff_id="STF/2024/001", department="Computer Science")
-        print(f"✅ Created Staff: username='STF/2024/001' / password='Staff@1234'")
-    else:
-        print("ℹ️  Staff user already exists")
-
-    # 4. Create Student User
-    if not User.objects.filter(username="22/071145217").exists():
+    # --- Create Student ---
+    if not User.objects.filter(username='student').exists():
+        print("Creating student user...")
         student = User.objects.create_user(
-            username="22/071145217",
-            email="student@unical.demo",
-            password="Demo@1234",
-            role="STUDENT",
-            first_name="Jane",
-            last_name="Student"
+            username='student',
+            email='student@example.com',
+            password='password123',
+            first_name='John',
+            last_name='Doe',
+            role=User.Roles.STUDENT
         )
+        # Create the profile
         StudentProfile.objects.create(
             user=student,
-            matric_number="22/071145217",
-            faculty=science.name,
-            department=compsci.name,
-            level=200
+            matric_number='CSC/2024/001',
+            faculty='Physical Sciences',
+            department='Computer Science',
+            level=100
         )
-        print(f"✅ Created Student: username='22/071145217' / password='Demo@1234'")
+        print("✅ Student user created.")
     else:
-        print("ℹ️  Student user already exists")
+        print("ℹ️ Student user already exists.")
 
-if __name__ == "__main__":
-    run_seed()
+    # --- Create Admin ---
+    if not User.objects.filter(username='admin').exists():
+        print("Creating admin user...")
+        admin = User.objects.create_user(
+            username='admin',
+            email='admin@example.com',
+            password='password123',
+            first_name='Super',
+            last_name='Admin',
+            role=User.Roles.ADMIN,
+            is_staff=True,
+            is_superuser=True
+        )
+        # Create the profile
+        AdminProfile.objects.create(
+            user=admin,
+            staff_id='ADMIN001',
+            department='Registry'
+        )
+        print("✅ Admin user created.")
+    else:
+        print("ℹ️ Admin user already exists.")
+
+    # --- Create Staff ---
+    if not User.objects.filter(username='staff').exists():
+        print("Creating staff user...")
+        staff = User.objects.create_user(
+            username='staff',
+            email='staff@example.com',
+            password='password123',
+            first_name='Academic',
+            last_name='Staff',
+            role=User.Roles.STAFF
+        )
+        # Create the profile
+        StaffProfile.objects.create(
+            user=staff,
+            staff_id='STAFF001',
+            department='Computer Science'
+        )
+        print("✅ Staff user created.")
+    else:
+        print("ℹ️ Staff user already exists.")
+
+if __name__ == '__main__':
+    seed()
