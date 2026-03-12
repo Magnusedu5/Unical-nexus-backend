@@ -9,13 +9,13 @@ root_router = DefaultRouter()
 urlpatterns = [
     path('admin/', admin.site.urls),
     
-    # Authentication and dashboard endpoints
-    path('accounts/', include('unical_fees_portal.accounts.urls')),
-    
     # API Documentation
     path('api/schema/', SpectacularAPIView.as_view(), name='schema'),
     path('api/schema/swagger-ui/', SpectacularSwaggerView.as_view(url_name='schema'), name='swagger-ui'),
     path('api/schema/redoc/', SpectacularRedocView.as_view(url_name='schema'), name='redoc'),
+
+    # Authentication and dashboard endpoints
+    path('api/', include('unical_fees_portal.accounts.urls')),
 
     # App URLs
     path('fees/', include('unical_fees_portal.fees.urls')),
